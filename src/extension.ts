@@ -208,7 +208,7 @@ function updateStatusBar(enabled: boolean, proxyUrl: string) {
     }
 
     if (enabled) {
-        statusBarItem.text = '$(plug) Proxy: On';
+        statusBarItem.text = `$(plug) Proxy: ${proxyUrl}`;
         statusBarItem.tooltip = `Proxy URL: ${proxyUrl}`;
     } else {
         statusBarItem.text = '$(circle-slash) Proxy: Off';
