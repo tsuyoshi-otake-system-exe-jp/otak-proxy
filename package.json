@@ -13,7 +13,7 @@
     "url": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy/issues"
   },
   "homepage": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy#readme",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.9.0"
   },

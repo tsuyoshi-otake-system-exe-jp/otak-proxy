@@ -5,7 +5,11 @@
 
 ---
 
-2. Toggle proxy settings
+On the first launch, a proxy settings screen is displayed, making it easy to configure.
+
+![](images\otak-proxy.png)
+
+1. Toggle proxy settings
    - Click the proxy icon in the status bar
    - Or use the command palette (F1) and search for "Toggle Proxy Settings"
 
@@ -57,7 +61,6 @@ If proxy settings fail to update:
 2. Ensure Git is installed
 3. Check GitHub CLI installation (if using)
 4. Verify required permissions
-
 
 ## Contributing
 
