@@ -7,7 +7,7 @@
 
 On the first launch, a proxy settings screen is displayed, making it easy to configure.
 
-![](images\otak-proxy.png)
+![](images/otak-proxy.png)
 
 1. Toggle proxy settings
    - Click the proxy icon in the status bar
