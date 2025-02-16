@@ -1,71 +1,72 @@
-# otak-proxy README
-
-This is the README for your extension "otak-proxy". After writing up a brief description, we recommend including the following sections.
-
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+<p align="center">
+  <h1 align="center">otak-proxy</h1>
+  <p align="center">Switch proxy settings for VSCode, Git, and GitHub CLI with one click. Enhance your workflow with a simple, efficient tool.</p>
+</p>
 
 ---
 
-## Following extension guidelines
+2. Toggle proxy settings
+   - Click the proxy icon in the status bar
+   - Or use the command palette (F1) and search for "Toggle Proxy Settings"
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+## Features
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+- One-click proxy settings toggle
+- Synchronized updates for VSCode, Git, and GitHub CLI proxy settings
+- Visual status indicator in the status bar
+- Persistent configuration
+- Initial setup wizard
 
-## Working with Markdown
+Status bar shows:
+- ![Proxy On](images/plug.png) Proxy: On - Proxy is enabled
+- ![Proxy Off](images/circle-slash.png) Proxy: Off - Proxy is disabled
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+## Requirements
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+- Visual Studio Code 1.9.0 or higher
+- Git (for global proxy configuration)
+- GitHub CLI (gh) - Optional
 
-## For more information
+## Extension Settings
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+This extension contributes the following settings:
 
-**Enjoy!**
+* `otakProxy.proxyUrl`: Proxy server URL
+  - Example: `http://proxy.example.com:8080`
+
+## Affected Settings
+
+This extension updates the following proxy configurations:
+
+1. VSCode
+   - Global `http.proxy` setting
+
+2. Git
+   - `http.proxy`
+   - `https.proxy`
+
+3. GitHub CLI
+   - `http_proxy`
+   - `https_proxy`
+
+## Troubleshooting
+
+If proxy settings fail to update:
+
+1. Verify proxy URL format
+2. Ensure Git is installed
+3. Check GitHub CLI installation (if using)
+4. Verify required permissions
+
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+For more information, visit the [GitHub repository](https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy).

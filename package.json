@@ -1,23 +1,40 @@
 {
   "name": "otak-proxy",
-  "displayName": "otak-proxy",
+  "displayName": "Otak Proxy",
   "description": "Switch proxy settings for VSCode, Git, and GitHub CLI with one click. Enhance your workflow with a simple, efficient tool.",
   "version": "0.0.1",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy"
+  },
   "engines": {
-    "vscode": "^1.97.0"
+    "vscode": "^1.9.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "otak-proxy.helloWorld",
-        "title": "Hello World"
+        "command": "otak-proxy.toggleProxy",
+        "title": "Toggle Proxy Settings"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Otak Proxy",
+      "properties": {
+        "otakProxy.proxyUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Proxy server URL (e.g., http://proxy.example.com:8080)"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -28,7 +45,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.97.0",
+    "@types/vscode": "^1.9.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.22.0",

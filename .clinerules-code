@@ -1,0 +1,81 @@
+# Otak Proxy Extension Development Rules
+
+## Project Structure
+- Main code in `src/extension.ts`
+- Configuration in `package.json`
+- Documentation in `README.md`
+
+## Code Organization
+1. Status Bar Management
+   - Initialize status bar item early in activation
+   - Show proxy status with clear icons (🔌 for enabled, ⭕ for disabled)
+   - Update status bar immediately after state changes
+
+2. Proxy Configuration
+   - Store proxy URL in VSCode settings (`otakProxy.proxyUrl`)
+   - Maintain state in extension's global state
+   - Update all three systems simultaneously:
+     - VSCode (`http.proxy`)
+     - Git (`http.proxy` and `https.proxy`)
+     - GitHub CLI (`http_proxy` and `https_proxy`)
+
+3. Error Handling
+   - Check GitHub CLI availability before configuration
+   - Gracefully handle missing tools
+   - Provide clear error messages
+   - Log detailed errors to console
+
+4. User Interface
+   - Initial setup wizard on first launch
+   - Clear status bar indicators
+   - Confirmation dialogs for important actions
+   - Input validation for proxy URL
+
+## Implementation Rules
+
+1. Command Execution
+   - Use `execAsync` for all CLI commands
+   - Handle execution errors appropriately
+   - Validate tool existence before execution
+
+2. State Management
+   - Use VSCode's `globalState` for persistent storage
+   - Keep proxy state synchronized across all tools
+   - Update UI immediately after state changes
+
+3. Configuration Updates
+   - Use VSCode's configuration API for settings
+   - Update global configurations only
+   - Validate settings before applying
+
+4. Error Handling
+   - Catch and log all errors
+   - Show user-friendly error messages
+   - Maintain system stability on errors
+
+5. UI/UX Guidelines
+   - Clear and concise messages
+   - Consistent icon usage
+   - Immediate visual feedback
+   - Non-blocking operations
+
+## Testing Considerations
+1. Verify proxy settings across all tools
+2. Test error scenarios (missing tools, invalid URLs)
+3. Check state persistence across VSCode restarts
+4. Validate configuration changes
+5. Test initial setup workflow
+
+## Maintenance Guidelines
+1. Keep error messages clear and actionable
+2. Maintain thorough documentation
+3. Follow VSCode extension best practices
+4. Use TypeScript features for type safety
+5. Regular testing of all functionality
+
+## Development Workflow
+1. Use `npm run compile` to build
+2. Test with F5 in VSCode
+3. Verify changes in extension host
+4. Check error handling
+5. Update documentation as needed
