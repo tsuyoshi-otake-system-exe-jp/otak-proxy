@@ -1,18 +1,25 @@
 {
   "name": "otak-proxy",
-  "displayName": "Otak Proxy",
+  "displayName": "otak-proxy",
   "description": "Switch proxy settings for VSCode, Git, and GitHub CLI with one click. Enhance your workflow with a simple, efficient tool.",
-  "version": "0.0.1",
+  "publisher": "odangoo",
+  "license": "MIT",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy"
   },
+  "bugs": {
+    "url": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy/issues"
+  },
+  "homepage": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy#readme",
+  "version": "0.0.1",
   "engines": {
     "vscode": "^1.9.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Education"
   ],
   "activationEvents": [
     "onStartupFinished"
@@ -26,7 +33,7 @@
       }
     ],
     "configuration": {
-      "title": "Otak Proxy",
+      "title": "otak-proxy",
       "properties": {
         "otakProxy.proxyUrl": {
           "type": "string",
