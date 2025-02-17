@@ -28,3 +28,12 @@
 - Git proxy configuration
 - GitHub CLI proxy configuration
 - Basic error handling
+
+## [0.0.1] - 2024-02-16
+
+### Added
+- Initial release of Otak Proxy Extension for VSCode
+- Toggle proxy settings for VSCode, Git and GitHub CLI with one click
+- Clear status bar indicators
+- Simple and efficient proxy configuration management
+- Automatic synchronization across all tools
