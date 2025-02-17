@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import * as os from 'os';
 
 const execAsync = promisify(exec);
 
@@ -81,12 +82,66 @@ async function executeCommand(command: string, errorContext: string): Promise<st
     }
 }
 
-async function checkGitHubCLI(): Promise<boolean> {
+async function updateSystemProxy(enabled: boolean, proxyUrl: string) {
+    const platform = os.platform();
+    const proxyWithoutProtocol = proxyUrl.replace(/^https?:\/\//, '');
+
     try {
-        await execAsync('gh --version');
+        switch (platform) {
+            case 'win32':
+                if (enabled) {
+                    // WinHTTPの設定を更新してシステム全体に即時反映
+                    await executeCommand(
+                        `netsh winhttp set proxy "${proxyWithoutProtocol}"`,
+                        'Windows system-wide proxy enable'
+                    );
+                } else {
+                    // WinHTTPのプロキシ設定をリセット
+                    await executeCommand(`netsh winhttp reset proxy`, 'Windows system-wide proxy disable');
+                }
+                break;
+
+            case 'darwin':
+                // macOSのネットワークサービス名を取得
+                const { stdout: networkServices } = await execAsync('networksetup -listallnetworkservices');
+                const services = networkServices.split('\n').slice(1).filter(Boolean); // 最初の行を除外し、空行を削除
+
+                for (const service of services) {
+                    if (enabled) {
+                        // macOSの各ネットワークサービスでプロキシを設定
+                        await executeCommand(
+                            `networksetup -setwebproxy "${service}" ${proxyWithoutProtocol.split(':')[0]} ${proxyWithoutProtocol.split(':')[1]}`,
+                            `macOS HTTP proxy for ${service}`
+                        );
+                        await executeCommand(
+                            `networksetup -setsecurewebproxy "${service}" ${proxyWithoutProtocol.split(':')[0]} ${proxyWithoutProtocol.split(':')[1]}`,
+                            `macOS HTTPS proxy for ${service}`
+                        );
+                    } else {
+                        // macOSの各ネットワークサービスでプロキシを無効化
+                        await executeCommand(`networksetup -setwebproxystate "${service}" off`, `macOS HTTP proxy disable for ${service}`);
+                        await executeCommand(`networksetup -setsecurewebproxystate "${service}" off`, `macOS HTTPS proxy disable for ${service}`);
+                    }
+                }
+                break;
+
+            case 'linux':
+                // システム環境変数を設定/解除
+                if (enabled) {
+                    await executeCommand(`gsettings set org.gnome.system.proxy mode 'manual'`, 'Linux proxy mode');
+                    await executeCommand(`gsettings set org.gnome.system.proxy.http host '${proxyWithoutProtocol.split(':')[0]}'`, 'Linux HTTP proxy host');
+                    await executeCommand(`gsettings set org.gnome.system.proxy.http port ${proxyWithoutProtocol.split(':')[1]}`, 'Linux HTTP proxy port');
+                    await executeCommand(`gsettings set org.gnome.system.proxy.https host '${proxyWithoutProtocol.split(':')[0]}'`, 'Linux HTTPS proxy host');
+                    await executeCommand(`gsettings set org.gnome.system.proxy.https port ${proxyWithoutProtocol.split(':')[1]}`, 'Linux HTTPS proxy port');
+                } else {
+                    await executeCommand(`gsettings set org.gnome.system.proxy mode 'none'`, 'Linux proxy disable');
+                }
+                break;
+        }
         return true;
     } catch (error) {
-        return false;
+        console.error('System proxy setting error:', error);
+        throw new Error('Failed to update system proxy settings');
     }
 }
 
@@ -113,40 +168,6 @@ async function updateGitProxy(enabled: boolean, proxyUrl: string) {
     } catch (error) {
         console.error('Git proxy setting error:', error);
         throw new Error('Failed to update Git proxy settings');
-    }
-}
-
-async function updateGitHubCLIProxy(enabled: boolean, proxyUrl: string) {
-    const isGhAvailable = await checkGitHubCLI();
-    if (!isGhAvailable) {
-        console.log('GitHub CLI not found. Skipping GitHub CLI proxy configuration.');
-        return true;
-    }
-
-    try {
-        if (enabled) {
-            await executeCommand(`gh config set -h github.com http_proxy "${proxyUrl}"`, 'GitHub CLI proxy configuration');
-            await executeCommand(`gh config set -h github.com https_proxy "${proxyUrl}"`, 'GitHub CLI proxy configuration');
-        } else {
-            const { stdout: httpProxy } = await execAsync('gh config get -h github.com http_proxy');
-            const { stdout: httpsProxy } = await execAsync('gh config get -h github.com https_proxy');
-
-            if (httpProxy.trim()) {
-                await executeCommand('gh config delete -h github.com http_proxy', 'GitHub CLI proxy removal');
-            }
-            if (httpsProxy.trim()) {
-                await executeCommand('gh config delete -h github.com https_proxy', 'GitHub CLI proxy removal');
-            }
-        }
-        return true;
-    } catch (error) {
-        if (error instanceof Error) {
-            if (error.message.includes('no such key')) {
-                return true;
-            }
-        }
-        console.error('GitHub CLI proxy setting error:', error);
-        throw new Error('Failed to update GitHub CLI proxy settings');
     }
 }
 
@@ -179,25 +200,37 @@ async function updateProxyState(enabled: boolean, context: vscode.ExtensionConte
         return;
     }
 
+    let success = true;
+    let errors: string[] = [];
+
+    try {
+        await updateSystemProxy(enabled, proxyUrl);
+    } catch (error) {
+        success = false;
+        errors.push(`System proxy: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+
     try {
         await updateVSCodeProxy(enabled, proxyUrl);
-        await updateGitProxy(enabled, proxyUrl);
-        
-        try {
-            await updateGitHubCLIProxy(enabled, proxyUrl);
-        } catch (error) {
-            console.warn('GitHub CLI configuration skipped:', error);
-        }
-
-        await context.globalState.update('proxyEnabled', enabled);
-        updateStatusBar(enabled, proxyUrl);
-        vscode.window.showInformationMessage(`Proxy settings ${enabled ? 'enabled' : 'disabled'}`);
     } catch (error) {
-        console.error('Error updating proxy settings:', error);
-        vscode.window.showErrorMessage(`Failed to update proxy settings: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        
-        const currentState = context.globalState.get<boolean>('proxyEnabled', false);
-        updateStatusBar(currentState, proxyUrl);
+        success = false;
+        errors.push(`VSCode proxy: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+
+    try {
+        await updateGitProxy(enabled, proxyUrl);
+    } catch (error) {
+        success = false;
+        errors.push(`Git proxy: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+
+    await context.globalState.update('proxyEnabled', enabled);
+    updateStatusBar(enabled, proxyUrl);
+
+    if (!success) {
+        vscode.window.showErrorMessage(`Some proxy settings failed to update:\n${errors.join('\n')}`);
+    } else {
+        vscode.window.showInformationMessage(`System proxy settings ${enabled ? 'enabled' : 'disabled'}`);
     }
 }
 

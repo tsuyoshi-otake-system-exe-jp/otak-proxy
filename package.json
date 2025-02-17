@@ -1,7 +1,7 @@
 {
   "name": "otak-proxy",
   "displayName": "otak-proxy",
-  "description": "Switch proxy settings for VSCode, Git, and GitHub CLI with one click. Enhance your workflow with a simple, efficient tool.",
+  "description": "One-click proxy configuration for OS, VSCode, and Git. Simple and efficient proxy management tool.",
   "publisher": "odangoo",
   "license": "MIT",
   "icon": "images/icon.png",
@@ -13,7 +13,7 @@
     "url": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy/issues"
   },
   "homepage": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy#readme",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "engines": {
     "vscode": "^1.9.0"
   },
@@ -38,9 +38,15 @@
         "otakProxy.proxyUrl": {
           "type": "string",
           "default": "",
-          "description": "Proxy server URL (e.g., http://proxy.example.com:8080)"
+          "description": "Proxy server URL (e.g., http://proxy.example.com:8080) for OS, VSCode, and Git proxy settings"
         }
       }
+    }
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true,
+      "description": "This extension requires system-level configuration changes to manage proxy settings"
     }
   },
   "scripts": {

@@ -1,74 +1,58 @@
 <p align="center">
   <h1 align="center">otak-proxy</h1>
-  <p align="center">Switch proxy settings for VSCode, Git, and GitHub CLI with one click. Enhance your workflow with a simple, efficient tool.</p>
+  <p align="center">One-click proxy configuration for OS, VSCode, and Git.</p>
 </p>
 
 ---
 
-On the first launch, a proxy settings screen is displayed, making it easy to configure.
+Simply click to enable/disable proxy settings across your entire system and development tools.
 
 ![](images/otak-proxy.png)
 
-1. Toggle proxy settings
-   - Click the proxy icon in the status bar
-   - Or use the command palette (F1) and search for "Toggle Proxy Settings"
-
 ## Features
 
-- One-click proxy settings toggle
-- Synchronized updates for VSCode, Git, and GitHub CLI proxy settings
-- Visual status indicator in the status bar
-- Persistent configuration
-- Initial setup wizard
+- One-click proxy configuration for:
+  - OS system proxy
+  - VSCode proxy
+  - Git proxy settings
+- Visual status indicator in status bar
+- Easy initial setup
+
+## Usage
+
+1. Click the proxy icon in the status bar to toggle
+2. Or use the command palette (F1): "Toggle Proxy Settings"
 
 Status bar shows:
-- ![Proxy On](images/plug.png) Proxy: On - Proxy is enabled
-- ![Proxy Off](images/circle-slash.png) Proxy: Off - Proxy is disabled
+- ![Proxy On](images/plug.png) Proxy: On - Shows current proxy URL
+- ![Proxy Off](images/circle-slash.png) Proxy: Off - Click to enable
+
+## OS Support
+
+- Windows: Configures WinHTTP proxy
+- macOS: Sets network service proxy
+- Linux: Updates GNOME proxy settings
 
 ## Requirements
 
 - Visual Studio Code 1.9.0 or higher
-- Git (for global proxy configuration)
-- GitHub CLI (gh) - Optional
+- Git
+- Admin rights (for system proxy configuration)
 
 ## Extension Settings
 
-This extension contributes the following settings:
-
-* `otakProxy.proxyUrl`: Proxy server URL
-  - Example: `http://proxy.example.com:8080`
-
-## Affected Settings
-
-This extension updates the following proxy configurations:
-
-1. VSCode
-   - Global `http.proxy` setting
-
-2. Git
-   - `http.proxy`
-   - `https.proxy`
-
-3. GitHub CLI
-   - `http_proxy`
-   - `https_proxy`
+* `otakProxy.proxyUrl`: Proxy server URL (e.g., `http://proxy.example.com:8080`)
 
 ## Troubleshooting
 
 If proxy settings fail to update:
-
-1. Verify proxy URL format
-2. Ensure Git is installed
-3. Check GitHub CLI installation (if using)
-4. Verify required permissions
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+1. Check proxy URL format
+2. Verify admin privileges
+3. Ensure Git is installed
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License - see the LICENSE file for details.
 
 ---
 
