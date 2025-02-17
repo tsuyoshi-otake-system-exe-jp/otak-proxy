@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.1.2] - 2024-02-17
+
+### Changed
+- Updated extension icon for better visibility
+
 ## [1.1.1] - 2024-02-17
 
 ### Fixed
