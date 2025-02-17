@@ -157,16 +157,37 @@ async function updateVSCodeProxy(enabled: boolean, proxyUrl: string) {
 
 async function updateGitProxy(enabled: boolean, proxyUrl: string) {
     try {
+        async function checkGitConfig(key: string): Promise<boolean> {
+            try {
+                await execAsync(`git config --global --get ${key}`);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+
         if (enabled) {
             await executeCommand(`git config --global http.proxy "${proxyUrl}"`, 'Git proxy configuration');
             await executeCommand(`git config --global https.proxy "${proxyUrl}"`, 'Git proxy configuration');
         } else {
-            await executeCommand('git config --global --unset http.proxy', 'Git proxy removal');
-            await executeCommand('git config --global --unset https.proxy', 'Git proxy removal');
+            const [hasHttpProxy, hasHttpsProxy] = await Promise.all([
+                checkGitConfig('http.proxy'),
+                checkGitConfig('https.proxy')
+            ]);
+
+            if (hasHttpProxy) {
+                await executeCommand('git config --global --unset http.proxy', 'Git proxy removal');
+            }
+            if (hasHttpsProxy) {
+                await executeCommand('git config --global --unset https.proxy', 'Git proxy removal');
+            }
         }
         return true;
     } catch (error) {
         console.error('Git proxy setting error:', error);
+        if (!enabled) {
+            return true; // プロキシ無効化時のエラーは無視する
+        }
         throw new Error('Failed to update Git proxy settings');
     }
 }

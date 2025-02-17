@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.1.1] - 2024-02-17
+
+### Fixed
+- Git proxy disabling error handling
+  - Added existence check for Git proxy settings
+  - Improved error handling when removing non-existent proxy settings
+
 ## [1.1.0] - 2024-02-17
 
 ### Added
