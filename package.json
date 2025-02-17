@@ -1,7 +1,7 @@
 {
   "name": "otak-proxy",
   "displayName": "otak-proxy",
-  "description": "One-click proxy configuration for OS, VSCode, and Git. Simple and efficient proxy management tool.",
+  "description": "One-click proxy configuration for OS, VSCode, and Git.",
   "publisher": "odangoo",
   "license": "MIT",
   "icon": "images/icon.png",
