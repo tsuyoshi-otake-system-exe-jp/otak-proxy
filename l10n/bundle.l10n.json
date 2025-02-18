@@ -1,0 +1,16 @@
+{
+  "configuration.proxyUrl.description": "VSCodeとGitのプロキシ設定に使用するプロキシサーバーのURL (例: http://proxy.example.com:8080)",
+  "command.toggleProxy.title": "プロキシ設定の切り替え",
+  "prompt.initialSetup": "プロキシ設定を構成しますか？",
+  "button.yes": "はい",
+  "button.no": "いいえ",
+  "prompt.enterProxyUrl": "プロキシURLを入力してください (例: http://proxy.example.com:8080)",
+  "prompt.enableProxyNow": "プロキシを今すぐ有効にしますか？",
+  "error.proxyUrlNotSet": "プロキシURLが設定されていません。今すぐ設定しますか？",
+  "error.settingsFailed": "一部のプロキシ設定の更新に失敗しました：",
+  "info.proxyEnabled": "プロキシ設定が有効になりました",
+  "info.proxyDisabled": "プロキシ設定が無効になりました",
+  "statusBar.proxyOff": "プロキシ: オフ",
+  "statusBar.clickToEnable": "クリックしてプロキシを有効にする",
+  "statusBar.proxyUrl": "プロキシURL: {0}"
+}

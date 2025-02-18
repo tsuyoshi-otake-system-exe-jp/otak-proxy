@@ -13,7 +13,7 @@
     "url": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy/issues"
   },
   "homepage": "https://github.com/tsuyoshi-otake-system-exe-jp/otak-proxy#readme",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "engines": {
     "vscode": "^1.9.0"
   },
@@ -29,7 +29,7 @@
     "commands": [
       {
         "command": "otak-proxy.toggleProxy",
-        "title": "Toggle Proxy Settings"
+        "title": "%command.toggleProxy.title%"
       }
     ],
     "configuration": {
@@ -41,7 +41,54 @@
           "description": "Proxy server URL (e.g., http://proxy.example.com:8080) for VSCode and Git proxy settings"
         }
       }
-    }
+    },
+    "l10n": [
+      {
+        "id": "ja",
+        "path": "./l10n/bundle.l10n.ja.json",
+        "languagePack": true
+      },
+      {
+        "id": "zh-cn",
+        "path": "./l10n/bundle.l10n.zh-cn.json",
+        "languagePack": true
+      },
+      {
+        "id": "zh-tw",
+        "path": "./l10n/bundle.l10n.zh-tw.json",
+        "languagePack": true
+      },
+      {
+        "id": "ko",
+        "path": "./l10n/bundle.l10n.ko.json",
+        "languagePack": true
+      },
+      {
+        "id": "de",
+        "path": "./l10n/bundle.l10n.de.json",
+        "languagePack": true
+      },
+      {
+        "id": "fr",
+        "path": "./l10n/bundle.l10n.fr.json",
+        "languagePack": true
+      },
+      {
+        "id": "es",
+        "path": "./l10n/bundle.l10n.es.json",
+        "languagePack": true
+      },
+      {
+        "id": "it",
+        "path": "./l10n/bundle.l10n.it.json",
+        "languagePack": true
+      },
+      {
+        "id": "ru",
+        "path": "./l10n/bundle.l10n.ru.json",
+        "languagePack": true
+      }
+    ]
   },
   "capabilities": {
     "untrustedWorkspaces": {
@@ -66,6 +113,7 @@
     "eslint": "^9.19.0",
     "typescript": "^5.7.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/l10n": "^0.0.18"
   }
 }

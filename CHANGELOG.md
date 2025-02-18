@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.2.0] - 2024-02-18
+
+### Added
+- Added multi-language support:
+  - Japanese (日本語)
+  - Chinese Simplified (简体中文)
+  - Chinese Traditional (繁體中文)
+  - Korean (한국어)
+  - German (Deutsch)
+  - French (Français)
+  - Spanish (Español)
+  - Italian (Italiano)
+  - Russian (Русский)
+
 ## [1.1.3] - 2024-02-18
 
 ### Changed

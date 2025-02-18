@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as l10n from '@vscode/l10n';
 
 let statusBarItem: vscode.StatusBarItem;
 
@@ -13,25 +14,25 @@ async function askForInitialSetup(context: vscode.ExtensionContext) {
     const hasSetup = context.globalState.get('hasInitialSetup', false);
     if (!hasSetup) {
         const answer = await vscode.window.showInformationMessage(
-            'Would you like to configure proxy settings?',
-            'Yes',
-            'No'
+            l10n.t('prompt.initialSetup'),
+            l10n.t('button.yes'),
+            l10n.t('button.no')
         );
 
-        if (answer === 'Yes') {
+        if (answer === l10n.t('button.yes')) {
             const proxyUrl = await vscode.window.showInputBox({
-                prompt: 'Enter proxy URL (e.g., http://proxy.example.com:8080)',
+                prompt: l10n.t('prompt.enterProxyUrl'),
                 placeHolder: 'http://proxy.example.com:8080'
             });
 
             if (proxyUrl) {
                 await vscode.workspace.getConfiguration('otakProxy').update('proxyUrl', proxyUrl, vscode.ConfigurationTarget.Global);
                 const enableNow = await vscode.window.showInformationMessage(
-                    'Would you like to enable proxy now?',
-                    'Yes',
-                    'No'
+                    l10n.t('prompt.enableProxyNow'),
+                    l10n.t('button.yes'),
+                    l10n.t('button.no')
                 );
-                if (enableNow === 'Yes') {
+                if (enableNow === l10n.t('button.yes')) {
                     await updateProxyState(true, context);
                 }
             }
@@ -41,8 +42,11 @@ async function askForInitialSetup(context: vscode.ExtensionContext) {
 }
 
 export async function activate(context: vscode.ExtensionContext) {
-    console.log('Extension "otak-proxy" is now active.');
+    // l10n設定
+    await l10n.config({ uri: vscode.Uri.joinPath(context.extensionUri, 'l10n', 'bundle.l10n.json').toString() });
+    console.log('l10n initialized');
 
+    console.log('Extension "otak-proxy" is now active.');
     statusBarItem = initializeStatusBar(context);
 
     await askForInitialSetup(context);
@@ -135,14 +139,14 @@ async function updateProxyState(enabled: boolean, context: vscode.ExtensionConte
 
     if (!proxyUrl && enabled) {
         const answer = await vscode.window.showErrorMessage(
-            'Proxy URL is not set. Would you like to configure it now?',
-            'Yes',
-            'No'
+            l10n.t('error.proxyUrlNotSet'),
+            l10n.t('button.yes'),
+            l10n.t('button.no')
         );
 
-        if (answer === 'Yes') {
+        if (answer === l10n.t('button.yes')) {
             const newProxyUrl = await vscode.window.showInputBox({
-                prompt: 'Enter proxy URL (e.g., http://proxy.example.com:8080)',
+                prompt: l10n.t('prompt.enterProxyUrl'),
                 placeHolder: 'http://proxy.example.com:8080'
             });
 
@@ -175,9 +179,9 @@ async function updateProxyState(enabled: boolean, context: vscode.ExtensionConte
     updateStatusBar(enabled, proxyUrl);
 
     if (!success) {
-        vscode.window.showErrorMessage(`Some proxy settings failed to update:\n${errors.join('\n')}`);
+        vscode.window.showErrorMessage(l10n.t('error.settingsFailed') + '\n' + errors.join('\n'));
     } else {
-        vscode.window.showInformationMessage(`Proxy settings ${enabled ? 'enabled' : 'disabled'}`);
+        vscode.window.showInformationMessage(enabled ? l10n.t('info.proxyEnabled') : l10n.t('info.proxyDisabled'));
     }
 }
 
@@ -188,11 +192,11 @@ function updateStatusBar(enabled: boolean, proxyUrl: string) {
     }
 
     if (enabled) {
-        statusBarItem.text = `$(plug) Proxy: ${proxyUrl}`;
-        statusBarItem.tooltip = `Proxy URL: ${proxyUrl}`;
+        statusBarItem.text = '$(plug) ' + l10n.t('statusBar.proxyUrl', proxyUrl);
+        statusBarItem.tooltip = l10n.t('statusBar.proxyUrl', proxyUrl);
     } else {
-        statusBarItem.text = '$(circle-slash) Proxy: Off';
-        statusBarItem.tooltip = 'Click to enable proxy';
+        statusBarItem.text = '$(circle-slash) ' + l10n.t('statusBar.proxyOff');
+        statusBarItem.tooltip = l10n.t('statusBar.clickToEnable');
     }
     statusBarItem.show();
 }

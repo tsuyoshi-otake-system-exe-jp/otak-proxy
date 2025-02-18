@@ -1,0 +1,16 @@
+{
+  "configuration.proxyUrl.description": "URL прокси-сервера для настроек прокси VSCode и Git (например: http://proxy.example.com:8080)",
+  "command.toggleProxy.title": "Переключить настройки прокси",
+  "prompt.initialSetup": "Хотите настроить параметры прокси?",
+  "button.yes": "Да",
+  "button.no": "Нет",
+  "prompt.enterProxyUrl": "Введите URL прокси (например: http://proxy.example.com:8080)",
+  "prompt.enableProxyNow": "Хотите включить прокси сейчас?",
+  "error.proxyUrlNotSet": "URL прокси не установлен. Хотите настроить его сейчас?",
+  "error.settingsFailed": "Не удалось обновить некоторые настройки прокси:",
+  "info.proxyEnabled": "Настройки прокси включены",
+  "info.proxyDisabled": "Настройки прокси отключены",
+  "statusBar.proxyOff": "Прокси: Выкл",
+  "statusBar.clickToEnable": "Нажмите, чтобы включить прокси",
+  "statusBar.proxyUrl": "URL прокси: {0}"
+}

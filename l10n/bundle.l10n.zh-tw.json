@@ -1,0 +1,16 @@
+{
+  "configuration.proxyUrl.description": "VSCode和Git代理設定的代理伺服器URL（例如：http://proxy.example.com:8080）",
+  "command.toggleProxy.title": "切換代理設定",
+  "prompt.initialSetup": "是否要配置代理設定？",
+  "button.yes": "是",
+  "button.no": "否",
+  "prompt.enterProxyUrl": "請輸入代理URL（例如：http://proxy.example.com:8080）",
+  "prompt.enableProxyNow": "是否要立即啟用代理？",
+  "error.proxyUrlNotSet": "代理URL未設定。是否要現在設定？",
+  "error.settingsFailed": "部分代理設定更新失敗：",
+  "info.proxyEnabled": "代理設定已啟用",
+  "info.proxyDisabled": "代理設定已停用",
+  "statusBar.proxyOff": "代理：關閉",
+  "statusBar.clickToEnable": "點擊啟用代理",
+  "statusBar.proxyUrl": "代理URL：{0}"
+}

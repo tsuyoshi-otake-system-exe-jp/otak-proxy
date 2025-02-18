@@ -15,6 +15,18 @@ Simply click to enable/disable proxy settings for your development tools.
   - VSCode proxy
   - Git proxy settings
 - Visual status indicator in status bar
+- Multiple language support:
+  - English
+  - Japanese (日本語)
+  - Chinese Simplified (简体中文)
+  - Chinese Traditional (繁體中文)
+  - Korean (한국어)
+  - German (Deutsch)
+  - French (Français)
+  - Spanish (Español)
+  - Italian (Italiano)
+  - Russian (Русский)
+  - _The UI language automatically matches your VSCode display language setting_
 - Easy initial setup
 
 ## Usage

@@ -1,0 +1,16 @@
+{
+  "configuration.proxyUrl.description": "URL du serveur proxy pour les paramètres proxy de VSCode et Git (ex: http://proxy.example.com:8080)",
+  "command.toggleProxy.title": "Basculer les paramètres du proxy",
+  "prompt.initialSetup": "Voulez-vous configurer les paramètres du proxy ?",
+  "button.yes": "Oui",
+  "button.no": "Non",
+  "prompt.enterProxyUrl": "Entrez l'URL du proxy (ex: http://proxy.example.com:8080)",
+  "prompt.enableProxyNow": "Voulez-vous activer le proxy maintenant ?",
+  "error.proxyUrlNotSet": "L'URL du proxy n'est pas définie. Voulez-vous la configurer maintenant ?",
+  "error.settingsFailed": "Échec de la mise à jour de certains paramètres du proxy :",
+  "info.proxyEnabled": "Paramètres du proxy activés",
+  "info.proxyDisabled": "Paramètres du proxy désactivés",
+  "statusBar.proxyOff": "Proxy : Désactivé",
+  "statusBar.clickToEnable": "Cliquez pour activer le proxy",
+  "statusBar.proxyUrl": "URL du proxy : {0}"
+}

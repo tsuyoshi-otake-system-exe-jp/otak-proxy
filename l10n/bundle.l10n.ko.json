@@ -1,0 +1,16 @@
+{
+  "configuration.proxyUrl.description": "VSCode 및 Git 프록시 설정을 위한 프록시 서버 URL (예: http://proxy.example.com:8080)",
+  "command.toggleProxy.title": "프록시 설정 전환",
+  "prompt.initialSetup": "프록시 설정을 구성하시겠습니까?",
+  "button.yes": "예",
+  "button.no": "아니오",
+  "prompt.enterProxyUrl": "프록시 URL을 입력하세요 (예: http://proxy.example.com:8080)",
+  "prompt.enableProxyNow": "지금 프록시를 활성화하시겠습니까?",
+  "error.proxyUrlNotSet": "프록시 URL이 설정되지 않았습니다. 지금 설정하시겠습니까?",
+  "error.settingsFailed": "일부 프록시 설정 업데이트 실패:",
+  "info.proxyEnabled": "프록시 설정이 활성화되었습니다",
+  "info.proxyDisabled": "프록시 설정이 비활성화되었습니다",
+  "statusBar.proxyOff": "프록시: 꺼짐",
+  "statusBar.clickToEnable": "클릭하여 프록시 활성화",
+  "statusBar.proxyUrl": "프록시 URL: {0}"
+}
