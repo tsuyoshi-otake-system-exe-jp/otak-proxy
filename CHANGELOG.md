@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.2.2] - 2024-02-18
+
+### Changed
+- Cancelled the implementation of multi-language support
+- Focus on maintaining stable core functionality
+
 ## [1.1.3] - 2024-02-18
 
 ### Changed
