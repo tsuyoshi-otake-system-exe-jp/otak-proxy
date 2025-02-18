@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.1.3] - 2024-02-18
+
+### Changed
+- Removed OS system proxy configuration feature
+- Simplified proxy management to focus on VSCode and Git settings only
+- Removed admin privilege requirement
+
 ## [1.1.2] - 2024-02-17
 
 ### Changed

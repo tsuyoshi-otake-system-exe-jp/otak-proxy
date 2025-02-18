@@ -1,18 +1,17 @@
 <p align="center">
   <h1 align="center">otak-proxy</h1>
-  <p align="center">One-click proxy configuration for OS, VSCode, and Git.</p>
+  <p align="center">One-click proxy configuration for VSCode and Git.</p>
 </p>
 
 ---
 
-Simply click to enable/disable proxy settings across your entire system and development tools.
+Simply click to enable/disable proxy settings for your development tools.
 
 ![](images/otak-proxy.png)
 
 ## Features
 
 - One-click proxy configuration for:
-  - OS system proxy
   - VSCode proxy
   - Git proxy settings
 - Visual status indicator in status bar
@@ -27,17 +26,10 @@ Status bar shows:
 - ![Proxy On](images/plug.png) Proxy: On - Shows current proxy URL
 - ![Proxy Off](images/circle-slash.png) Proxy: Off - Click to enable
 
-## OS Support
-
-- Windows: Configures WinHTTP proxy
-- macOS: Sets network service proxy
-- Linux: Updates GNOME proxy settings
-
 ## Requirements
 
 - Visual Studio Code 1.9.0 or higher
 - Git
-- Admin rights (for system proxy configuration)
 
 ## Extension Settings
 
@@ -47,8 +39,8 @@ Status bar shows:
 
 If proxy settings fail to update:
 1. Check proxy URL format
-2. Verify admin privileges
-3. Ensure Git is installed
+2. Ensure Git is installed
+3. Check Git global configuration permissions
 
 ## License
 
