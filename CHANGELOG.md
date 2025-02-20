@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.3.2] - 2024-02-20
+
+### Changed
+- Updated dependencies for better stability
+- Improved code quality
+
 ## [1.3.1] - 2024-02-20
 
 ### Changed
