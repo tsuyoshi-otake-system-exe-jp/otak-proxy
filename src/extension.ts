@@ -57,12 +57,30 @@ export async function activate(context: vscode.ExtensionContext) {
 
     await updateProxyState(isProxyEnabled, context);
 
+    // トグルコマンド
     let disposable = vscode.commands.registerCommand('otak-proxy.toggleProxy', async () => {
         const currentState = context.globalState.get<boolean>('proxyEnabled', false);
         await updateProxyState(!currentState, context);
     });
 
     context.subscriptions.push(disposable);
+
+    // プロキシURL設定コマンド
+    context.subscriptions.push(
+        vscode.commands.registerCommand('otak-proxy.configureUrl', async () => {
+            const proxyUrl = await vscode.window.showInputBox({
+                prompt: 'Enter proxy URL (e.g., http://proxy.example.com:8080)',
+                placeHolder: 'http://proxy.example.com:8080',
+                value: vscode.workspace.getConfiguration('otakProxy').get('proxyUrl', '')
+            });
+
+            if (proxyUrl !== undefined) {
+                await vscode.workspace.getConfiguration('otakProxy').update('proxyUrl', proxyUrl, vscode.ConfigurationTarget.Global);
+                const isEnabled = context.globalState.get<boolean>('proxyEnabled', false);
+                await updateProxyState(isEnabled, context);
+            }
+        })
+    );
 
     context.subscriptions.push(
         vscode.workspace.onDidChangeConfiguration(async e => {
@@ -183,8 +201,6 @@ async function updateProxyState(enabled: boolean, context: vscode.ExtensionConte
 
     if (!success) {
         vscode.window.showErrorMessage(`Some proxy settings failed to update:\n${errors.join('\n')}`);
-    } else {
-        vscode.window.showInformationMessage(`Proxy settings ${enabled ? 'enabled' : 'disabled'}`);
     }
 }
 
@@ -196,11 +212,34 @@ function updateStatusBar(enabled: boolean, proxyUrl: string) {
 
     if (enabled) {
         statusBarItem.text = `$(plug) Proxy: ${proxyUrl}`;
-        statusBarItem.tooltip = proxyUrl ? `Proxy URL: ${proxyUrl}` : 'Click to configure proxy URL';
+
+        const tooltip = new vscode.MarkdownString();
+        tooltip.isTrusted = true;
+        tooltip.supportThemeIcons = true;
+
+        tooltip.appendMarkdown(`### Proxy Configuration\n\n`);
+        tooltip.appendMarkdown(`**Status:** Enabled\n`);
+        tooltip.appendMarkdown(`**URL:** ${proxyUrl || '未設定'}\n\n`);
+        tooltip.appendMarkdown(`---\n\n`);
+        tooltip.appendMarkdown(`$(sync) [Toggle Proxy](command:otak-proxy.toggleProxy) &nbsp;&nbsp; $(gear) [Proxy Settings](command:otak-proxy.configureUrl)`);
+
+        statusBarItem.tooltip = tooltip;
     } else {
         statusBarItem.text = '$(circle-slash) Proxy: Off';
-        statusBarItem.tooltip = proxyUrl ? 'Click to enable proxy' : 'Click to configure proxy URL';
+
+        const tooltip = new vscode.MarkdownString();
+        tooltip.isTrusted = true;
+        tooltip.supportThemeIcons = true;
+
+        tooltip.appendMarkdown(`### Proxy Configuration\n\n`);
+        tooltip.appendMarkdown(`**Status:** Disabled\n`);
+        tooltip.appendMarkdown(`**URL:** ${proxyUrl || 'Not set'}\n\n`);
+        tooltip.appendMarkdown(`---\n\n`);
+        tooltip.appendMarkdown(`$(sync) [Toggle Proxy](command:otak-proxy.toggleProxy) &nbsp;&nbsp; $(gear) [Proxy Settings](command:otak-proxy.configureUrl)`);
+
+        statusBarItem.tooltip = tooltip;
     }
+    
     statusBarItem.show();
 }
 
