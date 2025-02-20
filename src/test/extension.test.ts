@@ -1,15 +1,106 @@
 import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+import * as sinon from 'sinon';
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+suite('Otak Proxy Extension Test Suite', () => {
+    let sandbox: sinon.SinonSandbox;
+    let extension: any;
+    let globalState: Map<string, any>;
+    let mockContext: Partial<vscode.ExtensionContext>;
+    let mockStatusBarItem: vscode.StatusBarItem;
+    
+    setup(async () => {
+        sandbox = sinon.createSandbox();
+        globalState = new Map();
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
-	});
+        // グローバルステートのモック作成
+        const mockMemento: vscode.Memento & { setKeysForSync(keys: readonly string[]): void } = {
+            get: <T>(key: string, defaultValue?: T): T => (globalState.get(key) ?? defaultValue) as T,
+            update: async (key: string, value: any) => {
+                globalState.set(key, value);
+                return Promise.resolve();
+            },
+            keys: () => [],
+            setKeysForSync: (keys: readonly string[]) => {}
+        };
+
+        // ステータスバーアイテムのモック作成
+        mockStatusBarItem = {
+            dispose: () => {},
+            show: () => {},
+            hide: () => {},
+            text: '',
+            tooltip: '',
+            command: '',
+            alignment: vscode.StatusBarAlignment.Right,
+            priority: 100,
+            id: 'test-status-bar',
+            name: 'Test Status Bar',
+            color: new vscode.ThemeColor('statusBar.foreground'),
+            backgroundColor: new vscode.ThemeColor('statusBar.background'),
+            accessibilityInformation: { label: 'Test Status Bar' }
+        } as vscode.StatusBarItem;
+
+        // コンテキストのモック作成
+        mockContext = {
+            subscriptions: [],
+            globalState: mockMemento,
+            workspaceState: mockMemento,
+            extensionUri: vscode.Uri.file(__dirname),
+            extensionPath: __dirname,
+            storageUri: vscode.Uri.file(__dirname),
+            storagePath: __dirname,
+            globalStorageUri: vscode.Uri.file(__dirname),
+            globalStoragePath: __dirname,
+            logUri: vscode.Uri.file(__dirname),
+            logPath: __dirname,
+            extensionMode: vscode.ExtensionMode.Test
+        };
+
+        // VSCode APIのモック化
+        sandbox.stub(vscode.window, 'createStatusBarItem').returns(mockStatusBarItem);
+        sandbox.stub(vscode.window, 'showInformationMessage').resolves('Yes' as any);
+        sandbox.stub(vscode.window, 'showErrorMessage').resolves();
+        sandbox.stub(vscode.window, 'showInputBox').resolves('http://test-proxy:8080');
+
+        // 設定のモック化
+        const mockConfig = {
+            get: (key: string) => key === 'proxyUrl' ? 'http://test-proxy:8080' : undefined,
+            update: () => Promise.resolve(),
+            has: () => true,
+            inspect: () => undefined
+        } as vscode.WorkspaceConfiguration;
+        
+        sandbox.stub(vscode.workspace, 'getConfiguration').returns(mockConfig);
+
+        // 拡張機能のインポート
+        extension = require('../extension');
+    });
+
+    teardown(() => {
+        sandbox.restore();
+    });
+
+    test('Extension should activate', async () => {
+        await extension.activate(mockContext);
+        assert.strictEqual(mockContext.subscriptions!.length > 0, true);
+    });
+
+    test('Status bar should be initialized', async () => {
+        await extension.activate(mockContext);
+        assert.strictEqual(mockStatusBarItem.command, 'otak-proxy.toggleProxy');
+    });
+
+    test('Initial setup should be prompted on first activation', async () => {
+        await extension.activate(mockContext);
+        const showInputBox = vscode.window.showInputBox as sinon.SinonStub;
+        assert.strictEqual(showInputBox.called, true);
+        assert.strictEqual(globalState.get('hasInitialSetup'), true);
+    });
+
+    test('Proxy toggle should update state', async () => {
+        await extension.activate(mockContext);
+        await vscode.commands.executeCommand('otak-proxy.toggleProxy');
+        assert.strictEqual(globalState.get('proxyEnabled'), true);
+    });
 });

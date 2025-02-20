@@ -43,11 +43,18 @@ async function askForInitialSetup(context: vscode.ExtensionContext) {
 export async function activate(context: vscode.ExtensionContext) {
     console.log('Extension "otak-proxy" is now active.');
 
+    // Initialize status bar immediately
     statusBarItem = initializeStatusBar(context);
+
+    const config = vscode.workspace.getConfiguration('otakProxy');
+    const proxyUrl = config.get<string>('proxyUrl', '');
+
+    const isProxyEnabled = context.globalState.get<boolean>('proxyEnabled', false);
+    // Show initial status before any setup
+    updateStatusBar(isProxyEnabled, proxyUrl);
 
     await askForInitialSetup(context);
 
-    const isProxyEnabled = context.globalState.get<boolean>('proxyEnabled', false);
     await updateProxyState(isProxyEnabled, context);
 
     let disposable = vscode.commands.registerCommand('otak-proxy.toggleProxy', async () => {
@@ -189,10 +196,10 @@ function updateStatusBar(enabled: boolean, proxyUrl: string) {
 
     if (enabled) {
         statusBarItem.text = `$(plug) Proxy: ${proxyUrl}`;
-        statusBarItem.tooltip = `Proxy URL: ${proxyUrl}`;
+        statusBarItem.tooltip = proxyUrl ? `Proxy URL: ${proxyUrl}` : 'Click to configure proxy URL';
     } else {
         statusBarItem.text = '$(circle-slash) Proxy: Off';
-        statusBarItem.tooltip = 'Click to enable proxy';
+        statusBarItem.tooltip = proxyUrl ? 'Click to enable proxy' : 'Click to configure proxy URL';
     }
     statusBarItem.show();
 }
