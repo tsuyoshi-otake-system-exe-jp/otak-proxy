@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.3.0] - 2024-02-20
+
+### Changed
+- Improved status bar tooltip interface
+  - Added clickable action buttons in tooltip
+  - Simplified status display format
+  - Enhanced tooltip layout and usability
+- Removed unnecessary notifications for proxy state changes
+
 ## [1.2.2] - 2024-02-18
 
 ### Changed

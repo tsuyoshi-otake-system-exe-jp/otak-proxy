@@ -218,8 +218,7 @@ function updateStatusBar(enabled: boolean, proxyUrl: string) {
         tooltip.supportThemeIcons = true;
 
         tooltip.appendMarkdown(`### Proxy Configuration\n\n`);
-        tooltip.appendMarkdown(`**Status:** Enabled\n`);
-        tooltip.appendMarkdown(`**URL:** ${proxyUrl || '未設定'}\n\n`);
+        tooltip.appendMarkdown(`**Status:** Enabled (URL: ${proxyUrl})\n\n`);
         tooltip.appendMarkdown(`---\n\n`);
         tooltip.appendMarkdown(`$(sync) [Toggle Proxy](command:otak-proxy.toggleProxy) &nbsp;&nbsp; $(gear) [Proxy Settings](command:otak-proxy.configureUrl)`);
 
@@ -232,8 +231,7 @@ function updateStatusBar(enabled: boolean, proxyUrl: string) {
         tooltip.supportThemeIcons = true;
 
         tooltip.appendMarkdown(`### Proxy Configuration\n\n`);
-        tooltip.appendMarkdown(`**Status:** Disabled\n`);
-        tooltip.appendMarkdown(`**URL:** ${proxyUrl || 'Not set'}\n\n`);
+        tooltip.appendMarkdown(`**Status:** Disabled\n\n`);
         tooltip.appendMarkdown(`---\n\n`);
         tooltip.appendMarkdown(`$(sync) [Toggle Proxy](command:otak-proxy.toggleProxy) &nbsp;&nbsp; $(gear) [Proxy Settings](command:otak-proxy.configureUrl)`);
 
