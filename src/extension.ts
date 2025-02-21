@@ -159,11 +159,15 @@ async function updateProxyState(enabled: boolean, context: vscode.ExtensionConte
     const proxyUrl = config.get<string>('proxyUrl', '');
 
     if (!proxyUrl && enabled) {
-        const answer = await vscode.window.showErrorMessage(
-            'Proxy URL is not set. Would you like to configure it now?',
-            'Yes',
-            'No'
-        );
+        const answer = await new Promise<string | undefined>(resolve => {
+            void vscode.window.withProgress({
+                location: vscode.ProgressLocation.Notification,
+                title: 'Proxy URL is not set. Would you like to configure it now?',
+                cancellable: true
+            }, async () => {
+                resolve(await vscode.window.showErrorMessage('Proxy URL is not set. Would you like to configure it now?', 'Yes', 'No'));
+            });
+        });
 
         if (answer === 'Yes') {
             const newProxyUrl = await vscode.window.showInputBox({
@@ -200,7 +204,12 @@ async function updateProxyState(enabled: boolean, context: vscode.ExtensionConte
     updateStatusBar(enabled, proxyUrl);
 
     if (!success) {
-        vscode.window.showErrorMessage(`Some proxy settings failed to update:\n${errors.join('\n')}`);
+        // エラーメッセージを表示し、7秒後に自動で閉じる
+        void vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: `Some proxy settings failed to update:\n${errors.join('\n')}`,
+            cancellable: false
+        }, () => new Promise(resolve => setTimeout(resolve, 7000)));
     }
 }
 

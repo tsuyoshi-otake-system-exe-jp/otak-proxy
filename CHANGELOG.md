@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.3.3] - 2024-02-21
+
+### Changed
+- Improved notification handling
+  - Added auto-closing notifications for error messages (7 seconds)
+  - Enhanced proxy URL configuration prompts with dismissible notifications
+
 ## [1.3.2] - 2024-02-20
 
 ### Changed
