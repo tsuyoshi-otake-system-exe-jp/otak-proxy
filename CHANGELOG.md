@@ -2,7 +2,7 @@
 
 All notable changes to the "otak-proxy" extension will be documented in this file.
 
-## [1.3.3] - 2024-03-01
+## [1.4.0] - 2024-03-01
 
 ### Added
 - Multi-language support for:
@@ -22,6 +22,12 @@ All notable changes to the "otak-proxy" extension will be documented in this fil
   - Czech (Čeština)
   - Bulgarian (Български)
   - Turkish (Türkçe)
+
+## [1.3.3] - 2024-02-21
+### Changed
+- Improved notification handling
+  - Added auto-closing notifications for error messages (7 seconds)
+  - Enhanced proxy URL configuration prompts with dismissible notifications
 
 ## [1.3.2] - 2024-02-15
 
