@@ -1,0 +1,8 @@
+{
+  "displayName": "otak-proxy",
+  "description": "Ein-Klick-Proxy-Konfiguration für VSCode und Git.",
+  "command.toggleProxy": "Proxy-Einstellungen umschalten",
+  "config.title": "otak-proxy",
+  "config.proxyUrl.description": "Proxy-Server-URL (z.B.: http://proxy.example.com:8080) für VSCode- und Git-Proxy-Einstellungen",
+  "capabilities.untrustedWorkspaces.description": "Diese Erweiterung verwaltet die Proxy-Einstellungen von VSCode und Git"
+}

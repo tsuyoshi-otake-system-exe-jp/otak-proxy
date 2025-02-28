@@ -1,0 +1,8 @@
+{
+  "displayName": "otak-proxy",
+  "description": "Konfigurace proxy jedním kliknutím pro VSCode a Git.",
+  "command.toggleProxy": "Přepnout nastavení proxy",
+  "config.title": "otak-proxy",
+  "config.proxyUrl.description": "URL proxy serveru (např.: http://proxy.example.com:8080) pro nastavení proxy VSCode a Git",
+  "capabilities.untrustedWorkspaces.description": "Toto rozšíření spravuje nastavení proxy pro VSCode a Git"
+}

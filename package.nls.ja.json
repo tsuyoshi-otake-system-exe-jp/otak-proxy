@@ -1,0 +1,8 @@
+{
+  "displayName": "otak-proxy",
+  "description": "VSCodeとGitのプロキシ設定をワンクリックで構成します。",
+  "command.toggleProxy": "プロキシ設定の切り替え",
+  "config.title": "otak-proxy",
+  "config.proxyUrl.description": "VSCodeとGitのプロキシ設定用のプロキシサーバーURL（例：http://proxy.example.com:8080）",
+  "capabilities.untrustedWorkspaces.description": "この拡張機能はVSCodeとGitのプロキシ設定を管理します"
+}

@@ -1,0 +1,8 @@
+{
+  "displayName": "otak-proxy",
+  "description": "Конфигурация на прокси с едно кликване за VSCode и Git.",
+  "command.toggleProxy": "Превключване на настройките на прокси",
+  "config.title": "otak-proxy",
+  "config.proxyUrl.description": "URL адрес на прокси сървър (напр.: http://proxy.example.com:8080) за настройките на прокси на VSCode и Git",
+  "capabilities.untrustedWorkspaces.description": "Това разширение управлява настройките на прокси за VSCode и Git"
+}

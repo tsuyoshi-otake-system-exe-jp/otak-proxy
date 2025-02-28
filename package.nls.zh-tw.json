@@ -1,0 +1,8 @@
+{
+  "displayName": "otak-proxy",
+  "description": "為VSCode和Git提供一鍵代理設定。",
+  "command.toggleProxy": "切換代理設定",
+  "config.title": "otak-proxy",
+  "config.proxyUrl.description": "VSCode和Git代理設定的代理伺服器URL（例如：http://proxy.example.com:8080）",
+  "capabilities.untrustedWorkspaces.description": "此擴充功能管理VSCode和Git的代理設定"
+}

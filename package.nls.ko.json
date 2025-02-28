@@ -1,0 +1,8 @@
+{
+  "displayName": "otak-proxy",
+  "description": "VSCode와 Git을 위한 원클릭 프록시 설정.",
+  "command.toggleProxy": "프록시 설정 전환",
+  "config.title": "otak-proxy",
+  "config.proxyUrl.description": "VSCode와 Git 프록시 설정을 위한 프록시 서버 URL (예: http://proxy.example.com:8080)",
+  "capabilities.untrustedWorkspaces.description": "이 확장 프로그램은 VSCode와 Git의 프록시 설정을 관리합니다"
+}

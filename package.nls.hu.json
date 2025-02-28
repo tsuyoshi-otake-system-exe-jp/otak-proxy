@@ -1,0 +1,8 @@
+{
+  "displayName": "otak-proxy",
+  "description": "Egy kattintásos proxy konfiguráció VSCode és Git számára.",
+  "command.toggleProxy": "Proxy beállítások kapcsolása",
+  "config.title": "otak-proxy",
+  "config.proxyUrl.description": "Proxy szerver URL (pl.: http://proxy.example.com:8080) a VSCode és Git proxy beállításokhoz",
+  "capabilities.untrustedWorkspaces.description": "Ez a bővítmény kezeli a VSCode és Git proxy beállításait"
+}
