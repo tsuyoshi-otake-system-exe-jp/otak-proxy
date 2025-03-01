@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.5.0] - 2024-03-01
+
+### Changed
+- Repackaged the extension for version 1.5.0
+
 ## [1.3.3] - 2024-02-21
 
 ### Changed
